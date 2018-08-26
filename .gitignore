@@ -1,5 +1,5 @@
-/checkpoint/
-/data/
-/result/
-/save/
-/log/
+checkpoint/
+result/
+save/
+log/
+*.tfrecords
