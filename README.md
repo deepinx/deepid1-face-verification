@@ -2,6 +2,8 @@ DeepID1
 ===
 Implementation of DeepID1 using tensorflow.
 
+The code is adapted based on an intial fork from the [DeepID1](https://github.com/jinze1994/DeepID1) repository.
+
 # 简要说明
 Face Verification（人脸验证）是人脸识别中的经典任务。即给定两张图片，判定这两张图片是否属于同一个人。
 
@@ -54,23 +56,12 @@ RAM: >= 12GB
 `./predict.py` 对测试集数据，利用训练好的网络提取特征，对比特征的 consine 相似度，得出判别是否同一个人的结果
 
 # 实验参数
-卷积神经网络完全按照 deepid1 的规格搭建，具体网络结构如下：
-![](https://github.com/jinze1994/DeepID1/blob/master/data/graph.png)
-
-一些其它的超参数设置如下：
+卷积神经网络完全按照 deepid1 的规格搭建，一些其它的超参数设置如下：
 
 |梯度下降方法|初始学习率|激活函数|batch size|预测向量距离|
 |----------|--------|-------|----------|----------|
 |AdamOptimizer| 1e-4|   relu|      1024|    cosine|
 
-# 收敛过程
-下图展示了训练过程中的收敛情况，第一幅图展示了softmax精确度随迭代次数增加的收敛情况；第二幅图展示了loss值随迭代次数的收敛情况。蓝线代表训练集的统计数据，红线代表验证集的统计数据。
-
-![](https://github.com/jinze1994/DeepID1/blob/master/data/accu.png)
-
-![](https://github.com/jinze1994/DeepID1/blob/master/data/loss.png)
-
-可以看出，精确度随迭代次数呈 S 型变化，在训练集上到达了 100%，在验证集上最终到达 95% 左右。loss 也随迭代次数不断下降，根据验证集的曲线并未上升，我们可以判断出训练并未过拟合。
 
 # 准确率
 与训练过程中的softmax准确率不同，这里的准确率是指测试集上，判断一个图片 pair 是否同一个人的准确率。
@@ -82,4 +73,5 @@ RAM: >= 12GB
 |20000|95.99%|
 |25000|95.83%|
 |30000|95.86%|
-由于小于 10000 的迭代轮数的 checkpoint 没有保存，因此懒得再跑了。可以看出，该实现在 Youtube face 数据集上的人脸验证准确率可稳定在 95% 以上。模型之前并未见过测试集中的人脸，可以看出我们的实现是成功的！
+
+可以看出，该实现在 Youtube face 数据集上的人脸验证准确率可稳定在 95% 以上。
